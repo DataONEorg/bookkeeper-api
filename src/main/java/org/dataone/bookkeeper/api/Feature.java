@@ -22,7 +22,7 @@
 package org.dataone.bookkeeper.api;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import io.dropwizard.jackson.Jackson;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -71,7 +71,7 @@ public class Feature {
         if ( ! json.equals("{}") ) {
 
             // Otherwise try to build the Feature
-            Feature feature = Jackson.newObjectMapper().readValue(json, Feature.class);
+            Feature feature = new ObjectMapper().readValue(json, Feature.class);
             this.name = feature.name;
             this.label = feature.label;
             this.description = feature.description;
