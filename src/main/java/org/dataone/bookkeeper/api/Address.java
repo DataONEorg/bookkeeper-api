@@ -22,7 +22,7 @@
 package org.dataone.bookkeeper.api;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import io.dropwizard.jackson.Jackson;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -60,7 +60,7 @@ public class Address {
 
     /**
      * Construct an Address from a JSON string
-     * @param json
+     * @param json the JSON string
      */
     public Address(String json) throws IOException {
         super();
@@ -69,7 +69,7 @@ public class Address {
         if ( ! json.equals("{}") ) {
 
             // Otherwise try to build the Address
-            Address address = Jackson.newObjectMapper().readValue(json, Address.class);
+            Address address = new ObjectMapper().readValue(json, Address.class);
             this.line1 = address.line1;
             this.line2 = address.line2;
             this.city = address.city;
@@ -81,12 +81,12 @@ public class Address {
 
     /**
      * Construct an address
-     * @param line1
-     * @param line2
-     * @param city
-     * @param state
-     * @param postalCode
-     * @param country
+     * @param line1 the address line 1
+     * @param line2 the address line 2
+     * @param city the address city
+     * @param state the address state
+     * @param postalCode the address postal code
+     * @param country the address country
      */
     public Address(String line1, String line2, String city,
                    String state, String postalCode, String country) {
@@ -109,7 +109,7 @@ public class Address {
 
     /**
      * Set the address line 1
-     * @param line1
+     * @param line1 the address line 1
      */
     public void setLine1(String line1) {
         this.line1 = line1;
@@ -125,7 +125,7 @@ public class Address {
 
     /**
      * Set the address line 2
-     * @param line2
+     * @param line2 the address line 2
      */
     public void setLine2(String line2) {
         this.line2 = line2;
@@ -141,7 +141,7 @@ public class Address {
 
     /**
      * Set the address city
-     * @param city
+     * @param city the address city
      */
     public void setCity(String city) {
         this.city = city;
@@ -157,7 +157,7 @@ public class Address {
 
     /**
      * Set the address state
-     * @param state
+     * @param state the address state
      */
     public void setState(String state) {
         this.state = state;
@@ -173,7 +173,7 @@ public class Address {
 
     /**
      * Set the address postal code
-     * @param postalCode
+     * @param postalCode the address postal code
      */
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
@@ -189,7 +189,7 @@ public class Address {
 
     /**
      * Set the address country
-     * @param country
+     * @param country the address country
      */
     public void setCountry(String country) {
         this.country = country;
@@ -197,7 +197,7 @@ public class Address {
 
     /**
      * Determine object equality based on the equality of all fields
-     * @param o
+     * @param o the object to compare
      * @return true if the objects are equal
      */
     @Override
