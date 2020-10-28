@@ -62,7 +62,7 @@ public class Feature {
 
     /**
      * Create a Feature from a JSON string
-     * @param json
+     * @param json the feature as a JSON string
      */
     public Feature(String json) throws IOException {
         super();
@@ -81,10 +81,10 @@ public class Feature {
 
     /**
      * Construct a Feature
-     * @param name
-     * @param label
-     * @param description
-     * @param quota
+     * @param name the feature name
+     * @param label the feature label
+     * @param description the feature description
+     * @param quota the feature quota
      */
     public Feature(@NotNull @NotEmpty String name,
                    @NotNull @NotEmpty String label,
@@ -98,7 +98,7 @@ public class Feature {
 
     /**
      * Get the feature name
-     * @return name
+     * @return name the feature name
      */
     public String getName() {
         return name;
@@ -106,7 +106,7 @@ public class Feature {
 
     /**
      * Set the feature name
-     * @param name
+     * @param name the feature name
      */
     public void setName(String name) {
         this.name = name;
@@ -114,7 +114,7 @@ public class Feature {
 
     /**
      * Get the feature label
-     * @return label
+     * @return label the feature label
      */
     public String getLabel() {
         return label;
@@ -122,7 +122,7 @@ public class Feature {
 
     /**
      * Set the feature label
-     * @param label
+     * @param label the feature label
      */
     public void setLabel(String label) {
         this.label = label;
@@ -130,7 +130,7 @@ public class Feature {
 
     /**
      * Get the feature description
-     * @return description
+     * @return description the feature description
      */
     public String getDescription() {
         return description;
@@ -138,7 +138,7 @@ public class Feature {
 
     /**
      * Set the feature description
-     * @param description
+     * @param description the feature description
      */
     public void setDescription(String description) {
         this.description = description;
@@ -146,7 +146,7 @@ public class Feature {
 
     /**
      * Get the feature quota
-     * @return quota
+     * @return quota the feature quota
      */
     public Quota getQuota() {
         return quota;
@@ -154,7 +154,7 @@ public class Feature {
 
     /**
      * Set the feature quota
-     * @param quota
+     * @param quota the feature quota
      */
     public void setQuota(Quota quota) {
         this.quota = quota;
@@ -163,7 +163,7 @@ public class Feature {
     /**
      * Determine object equality based on the equality of all fields
      * @param o the object to be compared
-     * @return
+     * @return true if the object is equal
      */
     @Override
     public boolean equals(Object o) {
@@ -178,7 +178,7 @@ public class Feature {
 
     /**
      * Calculate a hash based on all fields
-     * @return hashcode
+     * @return hashcode a hashcode for the object
      */
     @Override
     public int hashCode() {
