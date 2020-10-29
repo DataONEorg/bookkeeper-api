@@ -24,7 +24,7 @@ package org.dataone.bookkeeper.api;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import io.dropwizard.jackson.Jackson;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -95,7 +95,7 @@ public class Quota {
         if ( ! json.equals("{}") ) {
 
             // Otherwise try to build the Quota
-            Quota quota = Jackson.newObjectMapper().readValue(json, Quota.class);
+            Quota quota = new ObjectMapper().readValue(json, Quota.class);
             this.id = quota.id;
             this.object = quota.object;
             this.quotaType = quota.quotaType;

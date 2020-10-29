@@ -22,7 +22,7 @@
 package org.dataone.bookkeeper.api;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import io.dropwizard.jackson.Jackson;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -81,7 +81,7 @@ public class OrderItem {
         if ( ! json.equals("{}") ) {
 
             // Otherwise try to build the Feature
-            OrderItem orderItem = Jackson.newObjectMapper().readValue(json, OrderItem.class);
+            OrderItem orderItem = new ObjectMapper().readValue(json, OrderItem.class);
             this.object = orderItem.getObject();
             this.amount = orderItem.getAmount();
             this.currency = orderItem.getCurrency();
@@ -94,13 +94,13 @@ public class OrderItem {
 
     /**
      * Construct an order item
-     * @param object
-     * @param amount
-     * @param currency
-     * @param description
-     * @param parent
-     * @param quantity
-     * @param type
+     * @param object the order item object type
+     * @param amount the order item amount
+     * @param currency the order item currency
+     * @param description the order item description
+     * @param parent the order item parent product
+     * @param quantity the order item quantity
+     * @param type the order item type
      */
     public OrderItem(
         @NotNull @NotEmpty String object,
@@ -122,7 +122,7 @@ public class OrderItem {
 
     /**
      * Get the order item object type
-     * @return
+     * @return object the order item object type
      */
     public String getObject() {
         return object;
@@ -130,7 +130,7 @@ public class OrderItem {
 
     /**
      * Set the order item object type
-     * @param object
+     * @param object the order item object type
      */
     public void setObject(String object) {
         this.object = object;
@@ -138,7 +138,7 @@ public class OrderItem {
 
     /**
      * Get the order item amount
-     * @return
+     * @return amount the order item amount
      */
     public Integer getAmount() {
         return amount;
@@ -146,7 +146,7 @@ public class OrderItem {
 
     /**
      * Set the order item amount
-     * @param amount
+     * @param amount the order item amount
      */
     public void setAmount(Integer amount) {
         this.amount = amount;
@@ -154,7 +154,7 @@ public class OrderItem {
 
     /**
      * Get the order item currency
-     * @return
+     * @return currency the order item currency
      */
     public String getCurrency() {
         return currency;
@@ -162,7 +162,7 @@ public class OrderItem {
 
     /**
      * Set the order item currency
-     * @param currency
+     * @param currency the order item currency
      */
     public void setCurrency(String currency) {
         this.currency = currency;
@@ -170,7 +170,7 @@ public class OrderItem {
 
     /**
      * Get the order item description
-     * @return
+     * @return description the order item description
      */
     public String getDescription() {
         return description;
@@ -178,15 +178,15 @@ public class OrderItem {
 
     /**
      * Set the order item description
-     * @param description
+     * @param description the order item description
      */
     public void setDescription(String description) {
         this.description = description;
     }
 
     /**
-     * Get the order item parent identifier
-     * @return
+     * Get the order item parent product identifier
+     * @return parent the order item parent product identifier
      */
     public Integer getParent() {
         return parent;
@@ -194,7 +194,7 @@ public class OrderItem {
 
     /**
      * Set the order item parent identifier
-     * @param parent
+     * @param parent the order item parent product identifier
      */
     public void setParent(Integer parent) {
         this.parent = parent;
@@ -202,7 +202,7 @@ public class OrderItem {
 
     /**
      * Get the order item quantity
-     * @return
+     * @return quantity the order item quantity
      */
     public Integer getQuantity() {
         return quantity;
@@ -210,7 +210,7 @@ public class OrderItem {
 
     /**
      * Set the order item quantity
-     * @param quantity
+     * @param quantity the order item quantity
      */
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
@@ -218,7 +218,7 @@ public class OrderItem {
 
     /**
      * Get the order item type
-     * @return
+     * @return type the order item type
      */
     public String getType() {
         return type;
@@ -226,7 +226,7 @@ public class OrderItem {
 
     /**
      * Set the order item type
-     * @param type
+     * @param type the order item type
      */
     public void setType(String type) {
         this.type = type;
@@ -234,8 +234,8 @@ public class OrderItem {
 
     /**
      * Determine order item equality
-     * @param o
-     * @return
+     * @param o the object to compare
+     * @return true if the objects are equal
      */
     @Override
     public boolean equals(Object o) {
@@ -253,7 +253,7 @@ public class OrderItem {
 
     /**
      * Generate an order item hash code
-     * @return
+     * @return hashcode the order item hashcode
      */
     @Override
     public int hashCode() {

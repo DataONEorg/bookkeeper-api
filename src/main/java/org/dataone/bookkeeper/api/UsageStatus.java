@@ -23,7 +23,7 @@ package org.dataone.bookkeeper.api;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import io.dropwizard.jackson.Jackson;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -67,7 +67,7 @@ public class UsageStatus {
         if ( ! json.equals("{}") ) {
 
             // Otherwise try to build the UsageStatus
-            UsageStatus usagestatus = Jackson.newObjectMapper().readValue(json, UsageStatus.class);
+            UsageStatus usagestatus = new ObjectMapper().readValue(json, UsageStatus.class);
             this.object = usagestatus.object;
             this.status = usagestatus.status;
         }

@@ -28,7 +28,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import io.dropwizard.jackson.Jackson;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
@@ -566,7 +565,7 @@ public class Order {
      */
     public String getChargeJSON() throws JsonProcessingException {
         if ( charge != null ) {
-            return Jackson.newObjectMapper().writeValueAsString(getCharge());
+            return new ObjectMapper().writeValueAsString(getCharge());
         } else {
             return "{}";
         }
@@ -580,7 +579,7 @@ public class Order {
      */
     public String getItemsJSON() throws IOException {
         if ( items != null ) {
-            ObjectMapper mapper = Jackson.newObjectMapper();
+            ObjectMapper mapper = new ObjectMapper();
             ArrayNode itemsArray = mapper.createArrayNode();
 
             for (OrderItem item : items) {
@@ -599,7 +598,7 @@ public class Order {
      */
     public String getMetadataJSON() throws JsonProcessingException {
         if ( metadata != null ) {
-            return Jackson.newObjectMapper().writeValueAsString(getMetadata());
+            return new ObjectMapper().writeValueAsString(getMetadata());
         } else {
             return "{}";
         }
@@ -612,7 +611,7 @@ public class Order {
      */
     public String getStatusTransitionsJSON() throws JsonProcessingException {
         if ( statusTransitions != null ) {
-            return Jackson.newObjectMapper().writeValueAsString(getStatusTransitions());
+            return new ObjectMapper().writeValueAsString(getStatusTransitions());
         } else {
             return "{}";
         }

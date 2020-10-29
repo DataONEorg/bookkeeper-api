@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import io.dropwizard.jackson.Jackson;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.dataone.service.types.v1.SubjectInfo;
 
 import javax.security.auth.Subject;
@@ -118,23 +118,23 @@ public class Customer implements Principal {
 
     /**
      * Construct a Customer
-     * @param id
-     * @param object
-     * @param subject
-     * @param balance
-     * @param address
-     * @param created
-     * @param currency
-     * @param delinquent
-     * @param description
-     * @param discount
-     * @param email
-     * @param invoicePrefix
-     * @param invoiceSettings
-     * @param metadata
-     * @param givenName
-     * @param surName
-     * @param phone
+     * @param id the customer identifier
+     * @param object the customer object type
+     * @param subject the customer subject
+     * @param balance the customer balance
+     * @param address the customer address
+     * @param created the customer creation date (seconds since the epoch)
+     * @param currency the customer currency code
+     * @param delinquent the customer delinquent status
+     * @param description the customer description
+     * @param discount the customer discount
+     * @param email the customer email
+     * @param invoicePrefix the customer invoice prefix
+     * @param invoiceSettings the customer invoice settings
+     * @param metadata the customer metadata
+     * @param givenName the customer given name
+     * @param surName the customer surname
+     * @param phone the customer phone
      */
     public Customer(Integer id,
                     @NotEmpty @NotNull @Pattern(regexp = "customer") String object,
@@ -183,7 +183,7 @@ public class Customer implements Principal {
 
     /**
      * Set the customer identifier
-     * @param id
+     * @param id the customer identifier
      */
     public void setId(Integer id) {
         this.id = id;
@@ -199,7 +199,7 @@ public class Customer implements Principal {
 
     /**
      * G=Set the customer object type
-     * @param object
+     * @param object the customer identifier
      */
     public void setObject(String object) {
         this.object = object;
@@ -215,7 +215,7 @@ public class Customer implements Principal {
 
     /**
      * Set the customer subject identifier
-     * @param subject
+     * @param subject the customer identifier
      */
     public void setSubject(String subject) {
         this.subject = subject;
@@ -238,8 +238,8 @@ public class Customer implements Principal {
     }
 
     /**
-     * Get the customer identifier
-     * @return balance
+     * Get the customer balance
+     * @return balance the customer balance
      */
     public Integer getBalance() {
         return balance;
@@ -247,7 +247,7 @@ public class Customer implements Principal {
 
     /**
      * Set the customer balance
-     * @param balance
+     * @param balance the customer balance
      */
     public void setBalance(Integer balance) {
         this.balance = balance;
@@ -255,7 +255,7 @@ public class Customer implements Principal {
 
     /**
      * Get the customer address
-     * @return address
+     * @return address the customer address
      */
     public Address getAddress() {
         return address;
@@ -263,23 +263,23 @@ public class Customer implements Principal {
 
     /**
      * Set the customer address
-     * @param address
+     * @param address the customer address
      */
     public void setAddress(Address address) {
         this.address = address;
     }
 
     /**
-     * Get the customer creation date
-     * @return created
+     * Get the customer creation date (seconds since the epoch)
+     * @return created the customer creation date (seconds since the epoch)
      */
     public Integer getCreated() {
         return created;
     }
 
     /**
-     * Set the customer creation date
-     * @param created
+     * Set the customer creation date (seconds since the epoch)
+     * @param created the customer creation date (seconds since the epoch)
      */
     public void setCreated(Integer created) {
         this.created = created;
@@ -287,7 +287,7 @@ public class Customer implements Principal {
 
     /**
      * Get the customer currency
-     * @return currency
+     * @return currency the customer currency
      */
     public String getCurrency() {
         return currency;
@@ -295,7 +295,7 @@ public class Customer implements Principal {
 
     /**
      * Set the customer currency
-     * @param currency
+     * @param currency the customer currency
      */
     public void setCurrency(String currency) {
         this.currency = currency;
@@ -303,7 +303,7 @@ public class Customer implements Principal {
 
     /**
      * Get the customer delinquency status
-     * @return delinquent
+     * @return delinquent the customer delinquency status
      */
     public boolean isDelinquent() {
         return delinquent;
@@ -311,7 +311,7 @@ public class Customer implements Principal {
 
     /**
      * Set the customer delinquency status
-     * @param delinquent
+     * @param delinquent the customer delinquency status
      */
     public void setDelinquent(boolean delinquent) {
         this.delinquent = delinquent;
@@ -319,7 +319,7 @@ public class Customer implements Principal {
 
     /**
      * Get the customer description
-     * @return description
+     * @return description the customer description
      */
     public String getDescription() {
         return description;
@@ -327,7 +327,7 @@ public class Customer implements Principal {
 
     /**
      * Set the customer description
-     * @param description
+     * @param description the customer description
      */
     public void setDescription(String description) {
         this.description = description;
@@ -335,7 +335,7 @@ public class Customer implements Principal {
 
     /**
      * Get the customer discount
-     * @return discount
+     * @return discount the customer discount
      */
     public ObjectNode getDiscount() {
         return discount;
@@ -343,7 +343,7 @@ public class Customer implements Principal {
 
     /**
      * Set the customer discount
-     * @param discount
+     * @param discount the customer discount
      */
     public void setDiscount(ObjectNode discount) {
         this.discount = discount;
@@ -351,7 +351,7 @@ public class Customer implements Principal {
 
     /**
      * Get the customer email
-     * @return email
+     * @return email the customer email
      */
     public String getEmail() {
         return email;
@@ -359,7 +359,7 @@ public class Customer implements Principal {
 
     /**
      * Set the customer email
-     * @param email
+     * @param email the customer email
      */
     public void setEmail(String email) {
         this.email = email;
@@ -367,7 +367,7 @@ public class Customer implements Principal {
 
     /**
      * Get the customer invoice prefix
-     * @return invoicePrefix
+     * @return invoicePrefix the customer invoice prefix
      */
     public String getInvoicePrefix() {
         return invoicePrefix;
@@ -375,7 +375,7 @@ public class Customer implements Principal {
 
     /**
      * Set the customer invoicePrefix
-     * @param invoicePrefix
+     * @param invoicePrefix the customer invoicePrefix
      */
     public void setInvoicePrefix(String invoicePrefix) {
         this.invoicePrefix = invoicePrefix;
@@ -383,7 +383,7 @@ public class Customer implements Principal {
 
     /**
      * Get the customer invoice settings
-     * @return invoiceSettings
+     * @return invoiceSettings the customer invoice settings
      */
     public ObjectNode getInvoiceSettings() {
         return invoiceSettings;
@@ -391,7 +391,7 @@ public class Customer implements Principal {
 
     /**
      * Set the customer invoice settings
-     * @param invoiceSettings
+     * @param invoiceSettings the customer invoice settings
      */
     public void setInvoiceSettings(ObjectNode invoiceSettings) {
         this.invoiceSettings = invoiceSettings;
@@ -399,7 +399,7 @@ public class Customer implements Principal {
 
     /**
      * Get the customer metadata
-     * @return metadata
+     * @return metadata the customer metadata
      */
     public ObjectNode getMetadata() {
         return metadata;
@@ -407,7 +407,7 @@ public class Customer implements Principal {
 
     /**
      * Set the customer metadata
-     * @param metadata
+     * @param metadata the customer metadata
      */
     public void setMetadata(ObjectNode metadata) {
         this.metadata = metadata;
@@ -415,7 +415,7 @@ public class Customer implements Principal {
 
     /**
      * Get the customer given name
-     * @return givenName
+     * @return givenName the customer given name
      */
     public String getGivenName() {
         return givenName;
@@ -423,7 +423,7 @@ public class Customer implements Principal {
 
     /**
      * Set the customer given name
-     * @param givenName
+     * @param givenName the customer given name
      */
     public void setGivenName(String givenName) {
         this.givenName = givenName;
@@ -431,7 +431,7 @@ public class Customer implements Principal {
 
     /**
      * Get the customer surname
-     * @return surName
+     * @return surName the customer surname
      */
     public String getSurName() {
         return surName;
@@ -439,7 +439,7 @@ public class Customer implements Principal {
 
     /**
      * Set the customer surname
-     * @param surName
+     * @param surName the customer surname
      */
     public void setSurName(String surName) {
         this.surName = surName;
@@ -447,7 +447,7 @@ public class Customer implements Principal {
 
     /**
      * Get the customer phone number
-     * @return phone
+     * @return phone the customer phone
      */
     public String getPhone() {
         return phone;
@@ -455,7 +455,7 @@ public class Customer implements Principal {
 
     /**
      * Set the customer phone number
-     * @param phone
+     * @param phone the customer phone
      */
     public void setPhone(String phone) {
         this.phone = phone;
@@ -464,11 +464,11 @@ public class Customer implements Principal {
     /**
      * Return the discount hash as a JSON string
      * @return discount the discount JSON string
-     * @throws JsonProcessingException
+     * @throws JsonProcessingException a JSON processing exception
      */
     public String getDiscountJSON() throws JsonProcessingException {
         if ( discount != null ) {
-            return Jackson.newObjectMapper().writeValueAsString(getDiscount());
+            return new ObjectMapper().writeValueAsString(getDiscount());
         } else {
             return "{}";
         }
@@ -477,11 +477,11 @@ public class Customer implements Principal {
     /**
      * Return the address hash as a JSON string
      * @return address the address JSON string
-     * @throws JsonProcessingException
+     * @throws JsonProcessingException a JSON processing exception
      */
     public String getAddressJSON() throws JsonProcessingException {
         if ( address != null ) {
-            return Jackson.newObjectMapper().writeValueAsString(getAddress());
+            return new ObjectMapper().writeValueAsString(getAddress());
         } else {
             return "{}";
         }
@@ -490,11 +490,11 @@ public class Customer implements Principal {
     /**
      * Return the invoice settings hash as a JSON string
      * @return invoiceSettings the invoice settings JSON string
-     * @throws JsonProcessingException
+     * @throws JsonProcessingException a JSON processing exception
      */
     public String getInvoiceSettingsJSON() throws JsonProcessingException {
         if ( invoiceSettings != null ) {
-            return Jackson.newObjectMapper().writeValueAsString(getInvoiceSettings());
+            return new ObjectMapper().writeValueAsString(getInvoiceSettings());
         } else {
             return "{}";
         }
@@ -503,11 +503,11 @@ public class Customer implements Principal {
     /**
      * Return the metadata hash as a JSON string
      * @return metadata the metadata JSON string
-     * @throws JsonProcessingException
+     * @throws JsonProcessingException a JSON processing exception
      */
     public String getMetadataJSON() throws JsonProcessingException {
         if ( metadata != null ) {
-            return Jackson.newObjectMapper().writeValueAsString(getMetadata());
+            return new ObjectMapper().writeValueAsString(getMetadata());
         } else {
             return "{}";
         }
@@ -516,7 +516,7 @@ public class Customer implements Principal {
     /**
      * Determine object equality based on the equality of all fields
      * @param o the object to be compared
-     * @return
+     * @return true if the objects are equal
      */
     @Override
     public boolean equals(Object o) {
@@ -545,7 +545,7 @@ public class Customer implements Principal {
 
     /**
      * Calculate a hash based on all fields
-     * @return
+     * @return hash a hash based on all fields
      */
     @Override
     public int hashCode() {

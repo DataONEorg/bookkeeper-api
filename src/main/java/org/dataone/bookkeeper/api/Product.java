@@ -26,7 +26,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import io.dropwizard.jackson.Jackson;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Min;
@@ -167,7 +168,7 @@ public class Product {
 
     /**
      * Get the id as a primitive int
-     * @return
+     * @return id the id as a primitive int
      */
     public int getIdAsInt() {
         return getId().intValue();
@@ -175,7 +176,7 @@ public class Product {
 
     /**
      * Set the product id
-     * @param id
+     * @param id the product id
      */
     @JsonProperty
     public void setId(Integer id) {
@@ -193,7 +194,7 @@ public class Product {
 
     /**
      * Set the product object type string
-     * @param object
+     * @param object the product object type string
      */
     @JsonProperty
     public void setObject(String object) {
@@ -211,7 +212,7 @@ public class Product {
 
     /**
      * Set the product active status
-     * @param active
+     * @param active the product active status
      */
     @JsonProperty
     public void setActive(boolean active) {
@@ -220,7 +221,7 @@ public class Product {
 
     /**
      * Get the product name
-     * @return name
+     * @return name the product name
      */
     @JsonProperty
     public String getName() {
@@ -229,7 +230,7 @@ public class Product {
 
     /**
      * Set the product name
-     * @param name
+     * @param name the product name
      */
     @JsonProperty
     public void setName(String name) {
@@ -238,7 +239,7 @@ public class Product {
 
     /**
      * Get the product caption
-     * @return
+     * @return caption the product caption
      */
     @JsonProperty
     public String getCaption() {
@@ -247,7 +248,7 @@ public class Product {
 
     /**
      * Set the product caption
-     * @param caption
+     * @param caption the product caption
      */
     @JsonProperty
     public void setCaption(String caption) {
@@ -256,7 +257,7 @@ public class Product {
 
     /**
      * Get the product description
-     * @return
+     * @return description the product description
      */
     @JsonProperty
     public String getDescription() {
@@ -265,7 +266,7 @@ public class Product {
 
     /**
      * Set the product description
-     * @param description
+     * @param description the product description
      */
     @JsonProperty
     public void setDescription(String description) {
@@ -273,8 +274,8 @@ public class Product {
     }
 
     /**
-     * Get the product creation timestamp
-     * @return
+     * Get the product creation timestamp (seconds since the epoch)
+     * @return created the product creation timestamp (seconds since the epoch)
      */
     @JsonProperty
     public Integer getCreated() {
@@ -283,7 +284,7 @@ public class Product {
 
     /**
      * Set the product creation timestamp
-     * @param created
+     * @param created the product creation timestamp (seconds since the epoch)
      */
     @JsonProperty
     public void setCreated(Integer created) {
@@ -292,7 +293,7 @@ public class Product {
 
     /**
      * Get the creation date as an ISO 8601 timestamp string
-     * @return
+     * @return creationDate the creation date as an ISO 8601 timestamp string
      */
     public String getCreatedTimestamp() {
 
@@ -302,7 +303,7 @@ public class Product {
 
     /**
      * Get the product statement descriptor
-     * @return
+     * @return statementDescriptor the product statement descriptor
      */
     @JsonProperty
     public String getStatementDescriptor() {
@@ -311,7 +312,7 @@ public class Product {
 
     /**
      * Set the product statement descriptor
-     * @param statementDescriptor
+     * @param statementDescriptor the product statement descriptor
      */
     @JsonProperty
     public void setStatementDescriptor(String statementDescriptor) {
@@ -320,7 +321,7 @@ public class Product {
 
     /**
      * Get the product type
-     * @return
+     * @return type the product type
      */
     @JsonProperty
     public String getType() {
@@ -329,7 +330,7 @@ public class Product {
 
     /**
      * Set the product type
-     * @param type
+     * @param type the product type
      */
     @JsonProperty
     public void setType(String type) {
@@ -338,7 +339,7 @@ public class Product {
 
     /**
      * Get the product unit label
-     * @return
+     * @return unitLabel the product unit label
      */
     @JsonProperty
     public String getUnitLabel() {
@@ -347,7 +348,7 @@ public class Product {
 
     /**
      * Set the product unit label
-     * @param unitLabel
+     * @param unitLabel the product unit label
      */
     @JsonProperty
     public void setUnitLabel(String unitLabel) {
@@ -356,7 +357,7 @@ public class Product {
 
     /**
      * Get the product URL
-     * @return
+     * @return url the product URL
      */
     @JsonProperty
     public String getUrl() {
@@ -365,7 +366,7 @@ public class Product {
 
     /**
      * Set the product URL
-     * @param url
+     * @param url the product URL
      */
     @JsonProperty
     public void setUrl(String url) {
@@ -374,7 +375,7 @@ public class Product {
 
     /**
      * Get the product metadata
-     * @return
+     * @return metadata the product metadata
      */
     @JsonProperty
     public ObjectNode getMetadata() {
@@ -383,7 +384,7 @@ public class Product {
 
     /**
      * Set the product metadata
-     * @param metadata
+     * @param metadata the product metadata
      */
     @JsonProperty
     public void setMetadata(ObjectNode metadata) {
@@ -392,12 +393,12 @@ public class Product {
 
     /**
      * Return the metadata hash as a JSON string
-     * @return
-     * @throws JsonProcessingException
+     * @return metadataJSON the metadata hash as a JSON string
+     * @throws JsonProcessingException a JSON processing exception
      */
     public String getMetadataJSON() throws JsonProcessingException {
         if ( metadata != null ) {
-            return Jackson.newObjectMapper().writeValueAsString(getMetadata());
+            return new ObjectMapper().writeValueAsString(getMetadata());
         } else {
             return "{}";
         }
