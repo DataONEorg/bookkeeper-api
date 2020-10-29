@@ -23,7 +23,7 @@ package org.dataone.bookkeeper.api;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.dropwizard.jackson.Jackson;
+import org.dataone.bookkeeper.helpers.BookkeeperTestHelper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -31,51 +31,48 @@ import static io.dropwizard.testing.FixtureHelpers.fixture;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test the Address model
+ * Test the Product model
  */
-class AddressTest {
-    private final static ObjectMapper MAPPER = Jackson.newObjectMapper();
+@DisplayName("Product model test")
+public class ProductTest {
+    private final static ObjectMapper MAPPER = new ObjectMapper();
     static {
         MAPPER.setSerializationInclusion(Include.NON_NULL);
         MAPPER.setSerializationInclusion(Include.NON_EMPTY);
     }
-    private final static String ADDRESS_JSON = "fixtures/address.json";
-    private static final String LINE1 = "735 State Street";
-    private static final String LINE2 = "Suite 300";
-    private static final String CITY = "Santa Barbara";
-    private static final String STATE = "CA";
-    private static final String POSTALCODE = "93106";
-    private static final String COUNTRY = "USA";
+    private final static String PRODUCT_JSON = "fixtures/product.json";
 
     /**
      * Test serialization to JSON
+     * @throws Exception
      */
     @Test
-    @DisplayName("Test Address model serialization")
+    @DisplayName("Test Product model serialization")
     public void serializesToJSON() throws Exception {
-        // Build the Address instance
-        final Address address = new Address(LINE1, LINE2, CITY, STATE, POSTALCODE, COUNTRY);
+        // Build a Product instance
+        final Product product = BookkeeperTestHelper.createTestProduct(1);
+        final String actual = MAPPER.writeValueAsString(product);
 
-        // Test the Address instance
+        // Test the Product instance
         final String expected = MAPPER.writeValueAsString(
-            MAPPER.readValue(fixture("fixtures/address.json"), Address.class));
-        assertThat(MAPPER.writeValueAsString(address)).isEqualTo(expected);
-
+            MAPPER.readValue(fixture(PRODUCT_JSON), Product.class));
+        assertThat(actual).isEqualTo(expected);
     }
 
     /**
      * Test deserialization from JSON
      */
     @Test
-    @DisplayName("Test Address model deserialization")
+    @DisplayName("Test Product model deserialization")
     public void deserializesFromJSON() throws Exception {
-        // Build the Address instance
-        final Address address = new Address(LINE1, LINE2, CITY, STATE, POSTALCODE, COUNTRY);
+        // Build the Product instance
+        final Product product = BookkeeperTestHelper.createTestProduct(1);
 
-        // Test the Address instance
-        final Address deserializedAddress =
-        MAPPER.readValue(fixture("fixtures/address.json"), Address.class);
-        assertThat(deserializedAddress).isEqualTo(address);
+        // Test the Product instance
+        final Product deserializedProduct =
+            MAPPER.readValue(fixture(PRODUCT_JSON), Product.class);
+        assertThat(deserializedProduct).isEqualTo(product);
+
     }
 
 }

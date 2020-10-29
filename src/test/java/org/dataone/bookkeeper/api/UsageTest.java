@@ -24,7 +24,6 @@ package org.dataone.bookkeeper.api;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.dropwizard.jackson.Jackson;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -34,39 +33,36 @@ import static io.dropwizard.testing.FixtureHelpers.fixture;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test the quota model
+ * Test the usage model
  */
-class QuotaTest {
-    private final static ObjectMapper MAPPER = Jackson.newObjectMapper();
+class UsageTest {
+    private final static ObjectMapper MAPPER = new ObjectMapper();
     static {
         MAPPER.setSerializationInclusion(Include.NON_NULL);
         MAPPER.setSerializationInclusion(Include.NON_EMPTY);
     }
-    private final static String QUOTA_JSON = "fixtures/quota.json";
-    private static final Integer ID = 1;
-    private static final String OBJECT = "quota";
-    private static final String TYPE = "portal";
-    private static final @NotNull Double SOFTLIMIT = 3.0;
-    private static final @NotNull Double HARDLIMIT = 3.0;
-    private static final Double USAGE = null;
-    private static final String UNIT =  "portal";
-    private static final Integer MEMBERSHIP_ID = null;
-    private static final String SUBJECT = null;
-    private static final String NAME = null;
+    private final static String USAGE_JSON = "fixtures/usage.json";
+    private static final Integer ID = 54321;
+    private static final String OBJECT = "usage";
+    private static final Integer QUOTA_ID = 1;
+    private static final String INSTANCE_ID = "urn:uuid:56925d4b-9e46-49ec-96ea-38dc9ed0a64c";
+    private static final @NotNull Double QUANTITY = 1.0;
+    private static final String STATUS = "active";
+    private static final String NODE_ID = "urn:node:testNode";
+
 
     /**
      * Test serialization to JSON
      */
     @Test
-    @DisplayName("Test Quota model serialization")
+    @DisplayName("Test Usage model serialization")
     public void serializesToJSON() throws Exception {
-        // Build the Quota instance
-        final Quota quota = new Quota(ID, OBJECT, TYPE, SOFTLIMIT, HARDLIMIT,
-            USAGE, UNIT, MEMBERSHIP_ID, SUBJECT, NAME);
-        // Test the Quota instance
+        // Build the Usage instance
+        final Usage usage = new Usage(ID, OBJECT, QUOTA_ID, INSTANCE_ID, QUANTITY, STATUS, NODE_ID);
+        // Test the Usage instance
         final String expected = MAPPER.writeValueAsString(
-            MAPPER.readValue(fixture("fixtures/quota.json"), Quota.class));
-        assertThat(MAPPER.writeValueAsString(quota)).isEqualTo(expected);
+            MAPPER.readValue(fixture("fixtures/usage.json"), Usage.class));
+        assertThat(MAPPER.writeValueAsString(usage)).isEqualTo(expected);
 
     }
 
@@ -74,15 +70,13 @@ class QuotaTest {
      * Test deserialization from JSON
      */
     @Test
-    @DisplayName("Test Quota model deserialization")
+    @DisplayName("Test Usage model deserialization")
     public void deserializesFromJSON() throws Exception {
-        // Build the Quota instance
-        final Quota quota = new Quota(ID, OBJECT, TYPE, SOFTLIMIT, HARDLIMIT,
-            USAGE, UNIT, MEMBERSHIP_ID, SUBJECT, NAME);
-
-        // Test the Quota instance
-        final Quota deserializedQuota =
-            MAPPER.readValue(fixture("fixtures/quota.json"), Quota.class);
-        assertThat(deserializedQuota).isEqualTo(quota);
+        // Build the Usage instance
+        final Usage usage = new Usage(ID, OBJECT, QUOTA_ID, INSTANCE_ID, QUANTITY, STATUS, NODE_ID);
+        // Test the Usage instance
+        final Usage deserializedUsage =
+            MAPPER.readValue(fixture("fixtures/usage.json"), Usage.class);
+        assertThat(deserializedUsage).isEqualTo(usage);
     }
 }

@@ -21,70 +21,67 @@
 
 package org.dataone.bookkeeper.api;
 
+
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.dropwizard.jackson.Jackson;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import javax.validation.constraints.NotNull;
 
 import static io.dropwizard.testing.FixtureHelpers.fixture;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test the Feature model
+ * Test the quota model
  */
-@DisplayName("Feature model test")
-class FeatureTest {
-    private final static ObjectMapper MAPPER = Jackson.newObjectMapper();
+class QuotaTest {
+    private final static ObjectMapper MAPPER = new ObjectMapper();
     static {
         MAPPER.setSerializationInclusion(Include.NON_NULL);
         MAPPER.setSerializationInclusion(Include.NON_EMPTY);
     }
-    private final static String FEATURE_JSON = "fixtures/feature.json";
-    private final static String NAME = "custom_portal";
-    private final static String LABEL = "Branded Portals";
-    private final static String DESCRIPTION = "Showcase your research, data, results, " +
-        "and usage metrics by building a custom web portal.";
-    private final static Quota QUOTA = new Quota(
-        null,
-        "quota",
-        "portal",
-        3.0,
-        3.0,
-        null,
-        "portal",
-        null,
-        null,
-        null
-    );
+    private final static String QUOTA_JSON = "fixtures/quota.json";
+    private static final Integer ID = 1;
+    private static final String OBJECT = "quota";
+    private static final String TYPE = "portal";
+    private static final @NotNull Double SOFTLIMIT = 3.0;
+    private static final @NotNull Double HARDLIMIT = 3.0;
+    private static final Double USAGE = null;
+    private static final String UNIT =  "portal";
+    private static final Integer MEMBERSHIP_ID = null;
+    private static final String SUBJECT = null;
+    private static final String NAME = null;
 
     /**
      * Test serialization to JSON
      */
     @Test
-    @DisplayName("test Customer model serialization")
+    @DisplayName("Test Quota model serialization")
     public void serializesToJSON() throws Exception {
-        // Build the Customer instance
-        final Feature feature = new Feature(NAME, LABEL, DESCRIPTION, QUOTA);
-
-        // Test the Feature instance
+        // Build the Quota instance
+        final Quota quota = new Quota(ID, OBJECT, TYPE, SOFTLIMIT, HARDLIMIT,
+            USAGE, UNIT, MEMBERSHIP_ID, SUBJECT, NAME);
+        // Test the Quota instance
         final String expected = MAPPER.writeValueAsString(
-            MAPPER.readValue(fixture(FEATURE_JSON), Feature.class));
-        assertThat(MAPPER.writeValueAsString(feature)).isEqualTo(expected);
+            MAPPER.readValue(fixture("fixtures/quota.json"), Quota.class));
+        assertThat(MAPPER.writeValueAsString(quota)).isEqualTo(expected);
+
     }
 
     /**
      * Test deserialization from JSON
      */
     @Test
-    @DisplayName("Test Feature model deserialization")
+    @DisplayName("Test Quota model deserialization")
     public void deserializesFromJSON() throws Exception {
-        // Build the Feature instance
-        final Feature feature = new Feature(NAME, LABEL, DESCRIPTION, QUOTA);
+        // Build the Quota instance
+        final Quota quota = new Quota(ID, OBJECT, TYPE, SOFTLIMIT, HARDLIMIT,
+            USAGE, UNIT, MEMBERSHIP_ID, SUBJECT, NAME);
 
-        // Test the Feature instance
-        final Feature deserializedFeature =
-            MAPPER.readValue(fixture("fixtures/feature.json"), Feature.class);
-        assertThat(deserializedFeature).isEqualTo(feature);
+        // Test the Quota instance
+        final Quota deserializedQuota =
+            MAPPER.readValue(fixture("fixtures/quota.json"), Quota.class);
+        assertThat(deserializedQuota).isEqualTo(quota);
     }
 }

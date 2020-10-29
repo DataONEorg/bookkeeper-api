@@ -23,20 +23,18 @@ package org.dataone.bookkeeper.api;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.dropwizard.jackson.Jackson;
-import org.dataone.bookkeeper.helpers.OrderHelper;
+import org.dataone.bookkeeper.helpers.BookkeeperTestHelper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static io.dropwizard.testing.FixtureHelpers.fixture;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.dataone.bookkeeper.helpers.OrderHelper.*;
 
 /**
  * Test the Order model
  */
 public class OrderTest {
-    private final static ObjectMapper MAPPER = Jackson.newObjectMapper();
+    private final static ObjectMapper MAPPER = new ObjectMapper();
     static {
         MAPPER.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         MAPPER.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
@@ -45,13 +43,13 @@ public class OrderTest {
 
     /**
      * Test serialization to JSON
-     * @throws Exception
+     * @throws Exception any test exception
      */
     @Test
     @DisplayName("Test Order model serialization")
     public void serializesToJSON() throws Exception {
         // Build a Order instance
-        final Order order = createTestOrder(1, 2, 3, 4);
+        final Order order = BookkeeperTestHelper.createTestOrder(1, 2, 3, 4);
         final String actual = MAPPER.writeValueAsString(order);
 
         // Test the Order instance
@@ -62,12 +60,13 @@ public class OrderTest {
 
     /**
      * Test deserialization from JSON
+     * @throws Exception any test exception
      */
     @Test
     @DisplayName("Test Order model deserialization")
     public void deserializesFromJSON() throws Exception {
         // Build the Order instance
-        final Order order = OrderHelper.createTestOrder(1,2,3,4);
+        final Order order = BookkeeperTestHelper.createTestOrder(1,2,3,4);
 
         // Test the Order instance
         final Order deserializedOrder =

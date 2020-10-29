@@ -24,11 +24,8 @@ package org.dataone.bookkeeper.api;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import io.dropwizard.jackson.Jackson;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static io.dropwizard.testing.FixtureHelpers.fixture;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -38,7 +35,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @DisplayName("Customer model test")
 class CustomerTest {
-    private final static ObjectMapper MAPPER = Jackson.newObjectMapper();
+    private final static ObjectMapper MAPPER = new ObjectMapper();
     static {
         MAPPER.setSerializationInclusion(Include.NON_NULL);
         MAPPER.setSerializationInclusion(Include.NON_EMPTY);
