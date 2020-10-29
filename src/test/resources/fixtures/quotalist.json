@@ -1,0 +1,28 @@
+{
+  "quotas": [
+    {
+      "id": 1,
+      "object":"quota",
+      "quotaType":"portal",
+      "softLimit": 1.0,
+      "hardLimit": 1.0,
+      "unit": "portal"
+    },
+    {
+      "id": 2,
+      "object":"quota",
+      "quotaType":"portal",
+      "softLimit": 2.0,
+      "hardLimit": 2.0,
+      "unit": "portal"
+    },
+    {
+      "id": 3,
+      "object":"quota",
+      "quotaType":"portal",
+      "softLimit": 3.0,
+      "hardLimit": 3.0,
+      "unit": "portal"
+    }
+  ]
+}
