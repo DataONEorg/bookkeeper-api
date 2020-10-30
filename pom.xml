@@ -119,7 +119,32 @@
                         <artifactId>junit-vintage-engine</artifactId>
                         <version>${junit.vintage.version}</version>
                     </dependency>
+                    <dependency>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-deploy-plugin</artifactId>
+                        <version>${maven.deploy.version}</version>
+                    </dependency>
                 </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>${maven.deploy.version}</version>
+                <executions>
+                    <execution>
+                        <id>deploy-file</id>
+                        <goals>
+                            <goal>deploy-file</goal>
+                        </goals>
+                        <phase>deploy</phase>
+                        <configuration>
+                            <generatePom>false</generatePom>
+                            <pomFile>pom.xml</pomFile>
+                            <packaging>jar</packaging>
+                            <repositoryId>maven.dataone.org</repositoryId>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
         <extensions>
