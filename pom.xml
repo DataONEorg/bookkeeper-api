@@ -138,10 +138,15 @@
                         </goals>
                         <phase>deploy</phase>
                         <configuration>
+                            <url>${url}</url>
+                            <groupId>${project.groupId}</groupId>
+                            <artifactId>${project.artifactId}</artifactId>
+                            <file>${project.build.directory}/${project.build.finalName}.jar</file>
+                            <version>${project.version}</version>
                             <generatePom>false</generatePom>
                             <pomFile>pom.xml</pomFile>
                             <packaging>jar</packaging>
-                            <repositoryId>maven.dataone.org</repositoryId>
+                            <repositoryId>jenkins.dataone.org</repositoryId>
                         </configuration>
                     </execution>
                 </executions>
