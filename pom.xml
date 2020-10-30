@@ -22,6 +22,7 @@
         <jackson.version>2.11.3</jackson.version>
         <d1common.version>2.3.0</d1common.version>
         <hibernate.version>6.0.17.Final</hibernate.version>
+        <maven.wagon.version>2.10</maven.wagon.version>
     </properties>
 
     <dependencies>
@@ -122,6 +123,13 @@
                 </dependencies>
             </plugin>
         </plugins>
+        <extensions>
+            <extension>
+                <groupId>org.apache.maven.wagon</groupId>
+                <artifactId>wagon-ssh-external</artifactId>
+                <version>${maven.wagon.version}</version>
+            </extension>
+        </extensions>
     </build>
     <repositories>
         <repository>
@@ -145,4 +153,10 @@
             </snapshots>
         </repository>
     </repositories>
+    <distributionManagement>
+        <repository>
+            <id>maven.dataone.org</id>
+            <url>scpexe://maven.dataone.org/var/www/maven</url>
+        </repository>
+    </distributionManagement>
 </project>
