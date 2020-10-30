@@ -154,8 +154,11 @@
     </repositories>
     <distributionManagement>
         <repository>
-            <id>maven.dataone.org</id>
-            <url>scpexe://maven.dataone.org/var/www/maven</url>
+            <uniqueVersion>false</uniqueVersion>
+            <id>jenkins.dataone.org</id>
+            <name>DataONE</name>
+            <url>${url}</url>
+            <layout>default</layout>
         </repository>
     </distributionManagement>
 </project>
