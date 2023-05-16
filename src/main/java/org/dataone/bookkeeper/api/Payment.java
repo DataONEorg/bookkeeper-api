@@ -24,9 +24,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
@@ -38,12 +35,9 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
  * of payment information indicates whether a payment was approved or not, and thus whether an Order
  * can transition from created to paid state.
  */
-@JsonIgnoreProperties({"log"})
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class Payment {
-
-    private final Log log = LogFactory.getLog(Payment.class);
 
     @NotEmpty
     @NotNull
@@ -254,7 +248,6 @@ public class Payment {
         this.products = (String) firstResponse.get("products");
         this.transactionApproved = (String) firstResponse.get("transaction_approved");
         this.transactionTimestamp = (String) firstResponse.get("transaction_timestamp");
-        log.debug(this.transactionAmount);
     }
 
     @JsonProperty
