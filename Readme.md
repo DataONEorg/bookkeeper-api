@@ -24,7 +24,7 @@ Add it to your project POM file:
 ```xml
 <repository>
     <id>dataone.org</id>
-    <url>http://maven.dataone.org/</url>
+    <url>https://maven.dataone.org/</url>
     <releases>
         <enabled>true</enabled>
     </releases>
@@ -39,7 +39,7 @@ and add a dependency:
 <dependency>
     <groupId>org.dataone</groupId>
     <artifactId>bookkeeper-api</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
 </dependency>
 
 ```
