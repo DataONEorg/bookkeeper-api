@@ -22,7 +22,7 @@
         <jackson.version>2.11.3</jackson.version>
         <d1common.version>2.3.0</d1common.version>
         <hibernate.version>6.0.17.Final</hibernate.version>
-        <maven.wagon.version>2.10</maven.wagon.version>
+        <maven.wagon.version>3.5.3</maven.wagon.version>
     </properties>
     <dependencies>
         <dependency>
@@ -124,38 +124,23 @@
                         <artifactId>maven-deploy-plugin</artifactId>
                         <version>${maven.deploy.version}</version>
                     </dependency>
+                    <dependency>
+                        <groupId>org.apache.maven.wagon</groupId>
+                        <artifactId>wagon-ssh</artifactId>
+                        <version>${maven.wagon.version}</version>
+                    </dependency>
                 </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
                 <version>${maven.deploy.version}</version>
-                <executions>
-                    <execution>
-                        <id>deploy-file</id>
-                        <goals>
-                            <goal>deploy-file</goal>
-                        </goals>
-                        <phase>deploy</phase>
-                        <configuration>
-                            <url>${url}</url>
-                            <groupId>${project.groupId}</groupId>
-                            <artifactId>${project.artifactId}</artifactId>
-                            <file>${project.build.directory}/${project.build.finalName}.jar</file>
-                            <version>${project.version}</version>
-                            <generatePom>false</generatePom>
-                            <pomFile>pom.xml</pomFile>
-                            <packaging>jar</packaging>
-                            <repositoryId>jenkins.dataone.org</repositoryId>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
         <extensions>
             <extension>
                 <groupId>org.apache.maven.wagon</groupId>
-                <artifactId>wagon-ssh-external</artifactId>
+                <artifactId>wagon-ssh</artifactId>
                 <version>${maven.wagon.version}</version>
             </extension>
         </extensions>
@@ -185,9 +170,9 @@
     <distributionManagement>
         <repository>
             <uniqueVersion>false</uniqueVersion>
-            <id>jenkins.dataone.org</id>
+            <id>maven.dataone.org</id>
             <name>DataONE</name>
-            <url>${url}</url>
+            <url>scp://maven.dataone.org/var/www/maven</url>
             <layout>default</layout>
         </repository>
     </distributionManagement>
